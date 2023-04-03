@@ -62,7 +62,7 @@ The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 
 ### 4.2. Files and config
 
-{f}
+<details>
 
 Filetree
 
@@ -92,7 +92,7 @@ config/config.ini
     path_to_logs=logs/log.log
     log_size=26214400
     
-{/f}
+</details>
 
 ### 4.3. Logging
 
