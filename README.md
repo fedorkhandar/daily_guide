@@ -1,7 +1,8 @@
 # daily_guide
 Notes and guidelines for bad memory guy
 
-#Table of Contents
+# Table of Contents
+
 1. [Syntax notes](#1)
 1.1. [Markdown](#1.1)
 2. [Git and Github](#2)
@@ -26,6 +27,15 @@ Notes and guidelines for bad memory guy
 6.1. [Cyrillic encoding Windows in Psql](#6.1)
 7. [Pytest](#7)
 8. [The Process](#8)
+8.1. [Steps](#8.1)
+9. [Hardware](#9)
+9.0. [Test 0](#9.0)
+9.1. [Port Forwarding (D-link 615)](#9.1)
+9.2. [Test](#9.2)
+10. [Docker](#10)
+10.1 [Installation on Windows](#10.1)
+
+### Table of contents finishes
 
 ## 1. Syntax notes <a name="1"></a>
 
@@ -40,18 +50,20 @@ The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 Clone Repo
 
     git clone https://github.com/fedorkhandar/daily_guide
-    
+
 Full update Repo from **Gihtub**
 
     git pull origin main
-    
-Update Github from local repo
-    
-    git push origin main
-    
-## 3. Linux notes <a name="3"></a> 
 
-### 3.1. Screen <a name="3.1"></a> 
+Update Github from local repo
+
+    git push origin main
+
+Change Git Owner on local machine
+
+## 3. Linux notes <a name="3"></a>
+
+### 3.1. Screen <a name="3.1"></a>
 
 The reference [Screen Manual](https://www.gnu.org/software/screen/manual/html_node/index.html)
 
@@ -75,7 +87,7 @@ Windows
 
 `CTRL + A A` &mdash; rename window
 
-### 3.2. Users <a name="3.2"></a> 
+### 3.2. Users <a name="3.2"></a>
 
 поменять пользователя
 
@@ -137,7 +149,7 @@ Windows
 0. Write `#!/usr/bin/python3` in the first line of the `<my_script.py>`
 1. `dos2unix my_script.py` &mdash; format the file
 2. `chmod ugo+x my_script.py` &mdash; set the rights
-3. `./my_script.py` &mdash; run it 
+3. `./my_script.py` &mdash; run it
 
 `sudo apt-get install dos2unix` &mdash; install **dos2unix**
 
@@ -150,7 +162,7 @@ Windows
 `sudo pm2 logs my_job` &mdash; show logs
 
 `sudo pm2 start my_job` &mdash; start job
- 
+
 `sudo pm2 stop my_job` &mdash; stop job
 
 ## 4. Python <a name="4"></a>
@@ -173,7 +185,7 @@ Typical used file structure
     config/config.ini
     lib/mylibrary.py
     main.py
-    
+
 <details>
 
 <summary>main.py, config/config.ini</summary>
@@ -188,7 +200,7 @@ Typical used file structure
 
     config = configparser.ConfigParser()
     config.read("config/config.ini")
-    
+
 #### config/config.ini
 
     [logger]
@@ -199,7 +211,7 @@ Typical used file structure
     path_to_logs=logs/log.log
     maxbytes=26214400
     backupcount=5
-    
+
 </details>
 
 ### 4.3. Logging <a name="4.3"></a>
@@ -209,7 +221,7 @@ Filetree as in Section 4.2
 <details>
 
 <summary>config/config.ini, lib/mylogging.py, lib/mylibrary.py, parser.py</summary>
- 
+
 #### config/config.ini
 
     [logger]
@@ -220,9 +232,9 @@ Filetree as in Section 4.2
     path_to_logs=logs/log.log
     maxbytes=26214400
     backupcount=5
-    
-When **backupcount** is non-zero, the system will save old log files by appending the extensions. When current logfile is filled, it is closed and renamed to log.log.1, and if files log.log.1, log.log.2, etc. 
- 
+
+When **backupcount** is non-zero, the system will save old log files by appending the extensions. When current logfile is filled, it is closed and renamed to log.log.1, and if files log.log.1, log.log.2, etc.
+
 #### lib/mylogging.py
 
     import logging
@@ -231,8 +243,8 @@ When **backupcount** is non-zero, the system will save old log files by appendin
     def set_loggers(config):
         s_handler = logging.StreamHandler()
         f_handler = RotatingFileHandler(
-            config["logger"]["path_to_logs"], 
-            maxBytes=int(config["logger"]["maxbytes"]), 
+            config["logger"]["path_to_logs"],
+            maxBytes=int(config["logger"]["maxbytes"]),
             backupCount=int(config["logger"]["backupcount"])
         )
 
@@ -262,10 +274,10 @@ When **backupcount** is non-zero, the system will save old log files by appendin
             f_handler.setLevel(logging.WARNING)
         else:
             f_handler.setLevel(logging.ERROR)
-            
-        
+
+
         return s_handler, f_handler
-        
+
     def set_logger(config):
         logger = logging.getLogger(config["logger"]["rootname"])
         if config["logger"]["base_level"] == "DEBUG":
@@ -276,7 +288,7 @@ When **backupcount** is non-zero, the system will save old log files by appendin
             logger.setLevel(logging.WARNING)
         else:
             logger.setLevel(logging.ERROR)
-            
+
         s_handler, f_handler = set_loggers(config)
         logger.addHandler(s_handler)
         logger.addHandler(f_handler)
@@ -298,7 +310,7 @@ When **backupcount** is non-zero, the system will save old log files by appendin
         module_logger.info("calc_smth: x")
         module_logger.debug("calc_smth: x")
         pass
-        
+
 #### parser.py
 
     import configparser
@@ -319,11 +331,12 @@ When **backupcount** is non-zero, the system will save old log files by appendin
     logger.warning("i am in the parser")
     logger.info("i am in the parser")
     logger.debug("i am in the parser")
- 
+
  </details>
 
 ### 4.4. Virtual environment <a name="4.4"></a>
 
+[A Complete Guide to Python Virtual Environments](https://www.dataquest.io/blog/a-complete-guide-to-python-virtual-environments/)
 
 ## 5. Utilities <a name="5"></a>
 
@@ -358,15 +371,15 @@ Run the following commands as root user:
 ## 6. PostgreSQL <a name="6"></a>
 
 ### 6.1. Cyrillic encoding Windows in Psql <a name="6.1"></a>
-    
+
     Запустить cmd.exe, нажать мышью в правом левом верхнем углу окна, там Свойства - Шрифт - выбрать Lucida Console. Нажать ОК.
-    
+
     Выполнить команду: chcp 1251
     В ответ выведет: Текущая кодовая страница: 1251
-    
+
     Запустить psql;
     psql -d ВАШАБАЗА -U ВАШЛОГИН
-    
+
     Кстати, обратите внимание - теперь предупреждения о несовпадении кодировок нет.
     Выполнить: set client_encoding='win1251';
     Он выведет: SET
@@ -375,13 +388,53 @@ Run the following commands as root user:
 
 ## 8. The Process <a name="8"></a>
 
-### 8.1. 
+### 8.1. Steps <a name="8.1"></a>
 [The Good way to structure a Python Project](https://towardsdatascience.com/the-good-way-to-structure-a-python-project-d914f27dfcc9)
 1. Create separate **virtual environment**
+
+    * WARNING! **venv** doesn't work in 'Far Manager' on Windows
+
 2. Create separate **tests** folder
 3. Use **project template**
 4. **Document** everything immediately
 4.1. **Comment** code
 4.2. Make notes to **daily guide**
-5. Use **Git** 
+5. Use **Git**
+
+    * WARNING! Don't work inside **Cloud Storage Folders**
+
+## 9. Hardware <a name="9"></a>
+
+### 9.0. Test 0 <a name="9.0"></a>
+
+### 9.1. Port Forwarding (D-link 615) <a name="9.1"></a>
+
+[Enable port forwarding for the D-Link DIR-615
+](https://www.cfos.de/en/cfos-personal-net/port-forwarding/d-link-dir-615.htm)
+
+### 9.2. Test <a name="9.2"></a>
+
+## 10. Docker <a name="10"></a>
+
+### 10.1 Installation on Windows <a name="10.1"></a>
+
+## 11. Notepad ++
+
+### 11.1. Execution Python scripts from the Notepad ++
+
+We assumed:
+- *Python is in PATH*
+- *It's not about VENV*
+
+SETTINGS AND USE:
+
+1. Install plugin 'NppExec'
+2. Configure it - mark just these 3 menu items:
+    - Show NppExec Console
+    - No internal messages
+    - Follow $(CURRENT DIRECTORY)
+3. Use it:
+    - Press F6 on Python script tab
+    - Write and Save command "Python $(FILE_NAME)"
+
 
