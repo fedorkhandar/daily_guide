@@ -92,7 +92,7 @@ config/config.ini
     
 ### 4.3. Logging
 
-Filetree as in [Section 4.1](#4.2.-files-and-config)
+Filetree as in [Section 4.2](#4.2.-files-and-config)
 
 config.ini
 
