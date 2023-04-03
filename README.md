@@ -298,9 +298,9 @@ When **backupcount** is non-zero, the system will save old log files by appendin
  
  </details>
 
-5. Utilities
+## 5. Utilities
 
-5.1. Anydesk
+### 5.1. Anydesk
 
 [Howto](http://deb.anydesk.com/howto.html)
 
@@ -321,16 +321,16 @@ Run the following commands as root user:
         AutomaticLoginEnable=true
         AutomaticLogin=$USERNAME
 
-5.2. CURL
+### 5.2. CURL
 
 [Конвертер CURL-запросов](https://curlconverter.com/)
 
-5.3. 
+### 5.3. 
 
 
-6. PostgreSQL
+## 6. PostgreSQL
 
-6.1. Cyrillic encoding Windows in Psql
+### 6.1. Cyrillic encoding Windows in Psql
     
     Запустить cmd.exe, нажать мышью в правом левом верхнем углу окна, там Свойства - Шрифт - выбрать Lucida Console. Нажать ОК.
     
