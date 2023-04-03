@@ -20,14 +20,87 @@ Clone Repo
 Full update Repo from **Gihtub**
 
     git pull origin main
-
+    
+Update Github from local repo
+    
+    git push origin main
+    
 ## 3. Linux notes
 
 ### 3.1. Screen
 
+The reference [Screen Manual](https://www.gnu.org/software/screen/manual/html_node/index.html)
+
+Screen has sessions. Every session has windows.
+
+Sessions
+
+`screen -ls` &mdash; session list
+
+`screen -r 'session_name'` &mdash; connection after break
+
+`screen -D -r 'session_name'` &mdash; connection after break
+
+`screen -S session_name` &mdash; rename current session
+
+Windows
+
+`CTRL + A "` &mdash; Windows list
+
+`CTRL + A K` &mdash; Windows list
+
+`CTRL + A A` &mdash; rename window
+
 ### 3.2. Users
 
+поменять пользователя
+
+    su - username
+    sudo su - root
+
+добавление пользователя в группу sudo
+
+    usermod -a -G sudo имя_пользователя
+
+    sudo apt-get update
+    sudo apt-get upgrade
+    sudo apt-get update && sudo apt-get upgrade
+
+установить ssh
+
+    sudo apt-get install ssh
+    sudo apt install mc
+
+
 ### 3.3. Python installation
+
+[tgz on Python.org](https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz)
+
+
+УСТАНОВКА Python3.10
+
+    sudo apt update && sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev pkg-config -y
+
+    sudo apt-get install --reinstall ca-certificates
+    sudo apt install software-properties-comm   on -y
+    sudo -E add-apt-repository -y 'ppa:deadsnakes/ppa'
+
+    deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu YOUR_UBUNTU_VERSION_HERE main
+
+    # add deadsnake repo (default or nightly)
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo apt install python3.10
+
+    git clone https://github.com/pypa/setuptools.git && cd setuptools && sudo python3.10 setup.py install
+    sudo apt install python3.10-distutils
+    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10
+    sudo apt install python3.10-venv
+
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.6 2
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1
+    sudo update-alternatives --config python
+    sudo update-alternatives --config python
+
 
 ### 3.4. Ports
 
@@ -224,3 +297,50 @@ When **backupcount** is non-zero, the system will save old log files by appendin
     logger.debug("i am in the parser")
  
  </details>
+
+5. Utilities
+
+5.1. Anydesk
+
+[Howto](http://deb.anydesk.com/howto.html)
+
+[Command line for Linux](https://support.anydesk.com/knowledge/command-line-interface-for-linux)
+
+Run the following commands as root user:
+
+    wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -
+    echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
+    apt update
+    apt install anydesk
+    echo <password> | anydesk --set-password
+    anydesk --get-id
+    nano /etc/gdm3/custom.conf
+        WaylandEnable=false
+        [daemon]
+        # Enabling automatic login
+        AutomaticLoginEnable=true
+        AutomaticLogin=$USERNAME
+
+5.2. CURL
+
+[Конвертер CURL-запросов](https://curlconverter.com/)
+
+5.3. 
+
+
+6. PostgreSQL
+
+6.1. Cyrillic encoding Windows in Psql
+    
+    Запустить cmd.exe, нажать мышью в правом левом верхнем углу окна, там Свойства - Шрифт - выбрать Lucida Console. Нажать ОК.
+    
+    Выполнить команду: chcp 1251
+    В ответ выведет: Текущая кодовая страница: 1251
+    
+    Запустить psql;
+    psql -d ВАШАБАЗА -U ВАШЛОГИН
+    
+    Кстати, обратите внимание - теперь предупреждения о несовпадении кодировок нет.
+    Выполнить: set client_encoding='win1251';
+    Он выведет: SET
+
