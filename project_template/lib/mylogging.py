@@ -4,7 +4,9 @@ from logging.handlers import RotatingFileHandler
 def set_loggers(config):
     s_handler = logging.StreamHandler()
     f_handler = RotatingFileHandler(
-        config["logger"]["path_to_logs"], maxBytes=26214400, backupCount=1
+        config["logger"]["path_to_logs"], 
+        maxBytes=int(config["logger"]["maxbytes"]), 
+        backupCount=int(config["logger"]["backupcount"])
     )
 
     s_format = logging.Formatter(

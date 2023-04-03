@@ -13,6 +13,14 @@ The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 
 ### 2.2. Github
 
+Clone Repo
+
+    git clone https://github.com/fedorkhandar/daily_guide
+    
+Full update Repo from **Gihtub**
+
+    git pull origin main
+
 ## 3. Linux notes
 
 ### 3.1. Screen
@@ -23,9 +31,9 @@ The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 
 ### 3.4. Ports
 
-`sudo fuser -vn tcp`**`<PORT>`** &mdash; Find who occupies the port
+`sudo fuser -vn tcp`**`<PORT>`** &mdash; find who occupies the port
 
-`kill -9`**`<PID>`** &mdash; Kill it
+`kill -9`**`<PID>`** &mdash; kill it
 
 ### 3.4. Executable python script
 
@@ -112,7 +120,8 @@ Filetree as in Section 4.2
     show_level=DEBUG
     file_level=ERROR
     path_to_logs=logs/log.log
-    log_size=26214400
+    maxbytes=26214400
+    backupcount=5
     
 When **backupcount** is non-zero, the system will save old log files by appending the extensions. When current logfile is filled, it is closed and renamed to log.log.1, and if files log.log.1, log.log.2, etc. 
  
@@ -124,7 +133,9 @@ When **backupcount** is non-zero, the system will save old log files by appendin
     def set_loggers(config):
         s_handler = logging.StreamHandler()
         f_handler = RotatingFileHandler(
-            config["logger"]["path_to_logs"], maxBytes=26214400, backupCount=1
+            config["logger"]["path_to_logs"], 
+            maxBytes=int(config["logger"]["maxbytes"]), 
+            backupCount=int(config["logger"]["backupcount"])
         )
 
         s_format = logging.Formatter(
