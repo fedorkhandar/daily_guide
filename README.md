@@ -71,7 +71,10 @@ Typical used file structure
     
 <details>
 
-<summary>**main.py** and **config/config.ini**</summary>
+<summary>
+- main.py
+- config/config.ini
+</summary>
 
  main.py
 
@@ -103,10 +106,10 @@ Filetree as in Section 4.2
 <details>
 
 <summary>
-config/config.ini 
-lib/mylogging.py
-lib/mylibrary.py
-parser.py 
+- config/config.ini 
+- lib/mylogging.py
+- lib/mylibrary.py
+- parser.py 
 </summary>
  
 config/config.ini
