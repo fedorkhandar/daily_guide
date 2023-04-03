@@ -60,7 +60,7 @@ The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 
 `flake8 my_script.py >> _1.txt` &mdash; large linter
 
-### 4.1. Files and config
+### 4.2. Files and config
 
 Filetree
 
@@ -90,9 +90,9 @@ config/config.ini
     path_to_logs=logs/log.log
     log_size=26214400
     
-### 4.2. Logging
+### 4.3. Logging
 
-Filetree as in [Section 4.1](#4.1.-Files-and-config)
+Filetree as in [Section 4.1](#4.2. Files and config)
 
 config.ini
 
