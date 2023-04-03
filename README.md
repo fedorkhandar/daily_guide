@@ -73,7 +73,7 @@ Typical used file structure
 
 <summary>main.py, config/config.ini</summary>
 
- main.py
+#### main.py
 
     import configparser
     import logging
@@ -84,7 +84,7 @@ Typical used file structure
     config = configparser.ConfigParser()
     config.read("config/config.ini")
     
-config/config.ini
+#### config/config.ini
 
     [logger]
     rootname=parser
@@ -104,7 +104,7 @@ Filetree as in Section 4.2
 
 <summary>config/config.ini, lib/mylogging.py, lib/mylibrary.py, parser.py</summary>
  
-config/config.ini
+#### config/config.ini
 
     [logger]
     rootname=parser
@@ -116,7 +116,7 @@ config/config.ini
     
 When **backupcount** is non-zero, the system will save old log files by appending the extensions. When current logfile is filled, it is closed and renamed to log.log.1, and if files log.log.1, log.log.2, etc. 
  
-lib/mylogging.py
+#### lib/mylogging.py
 
     import logging
     from logging.handlers import RotatingFileHandler
@@ -174,7 +174,7 @@ lib/mylogging.py
 
         return logger
 
-lib/mylibrary.py
+#### lib/mylibrary.py
 
     import configparser
     import logging
@@ -190,7 +190,7 @@ lib/mylibrary.py
         module_logger.debug("calc_smth: x")
         pass
         
-parser.py
+#### parser.py
 
     import configparser
     import sys
