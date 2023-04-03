@@ -23,5 +23,6 @@ The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 
 ### 3.4. Ports
 
-`sudo fuser -vn tcp <PORT>` -- Find who occupies the port
-`kill -9 <PID>` -- Kill it
+`sudo fuser -vn tcp <PORT>` &mdash; Find who occupies the port
+
+`kill -9 <PID>` &mdash; Kill it
