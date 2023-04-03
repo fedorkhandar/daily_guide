@@ -35,3 +35,16 @@ The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 3. `./my_script.py` &mdash; run it 
 
 `sudo apt-get install dos2unix` &mdash; install **dos2unix**
+
+### 3.5. pm2
+
+`pm2 start myscript.py --name my_job --interpreter python3 --restart-delay 10000` &mdash; create job
+
+`sudo pm2 restart my_job` &mdash; restart job
+
+`sudo pm2 logs my_job` &mdash; show logs
+
+ sudo pm2 start my_job` &mdash; start job
+ 
+sudo pm2 stop my_job` &mdash; stop job
+
