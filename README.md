@@ -64,8 +64,6 @@ The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 
 Typical used file structure
 
-Filetree
-
     logs/log.log
     config/config.ini
     lib/mylibrary.py
