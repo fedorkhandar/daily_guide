@@ -100,7 +100,8 @@ Typical used file structure
     show_level=DEBUG
     file_level=ERROR
     path_to_logs=logs/log.log
-    log_size=26214400
+    maxbytes=26214400
+    backupcount=5
     
 </details>
 
