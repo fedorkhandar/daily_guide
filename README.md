@@ -30,7 +30,7 @@ The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 ### 3.4. Executable python script
 
 0. Write `#!/usr/bin/python3` in the first line of the **`<my_script.py>`** 
-1. `dos2unix`**`<my_script.py>`** 
-2. `chmod ugo+x`**`<my_script.py>`** 
+1. `dos2unix`**`<my_script.py>`** &mdash; format the file
+2. `chmod ugo+x`**`<my_script.py>`** &mdash; set the rights
 
 `sudo apt-get install dos2unix` &mdash; install **dos2unix**
