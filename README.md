@@ -62,6 +62,8 @@ The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 
 ### 4.2. Files and config
 
+{f}
+
 Filetree
 
     logs/log.log
@@ -90,9 +92,11 @@ config/config.ini
     path_to_logs=logs/log.log
     log_size=26214400
     
+{/f}
+
 ### 4.3. Logging
 
-Filetree as in [Section 4.2](#4.2.-files-and-config)
+Filetree as in Section 4.2
 
 config.ini
 
