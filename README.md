@@ -25,6 +25,7 @@ Notes and guidelines for bad memory guy
 6. [PostgreSQL](#6)
 6.1. [Cyrillic encoding Windows in Psql](#6.1)
 7. [Pytest](#7)
+8. [The Process](#8)
 
 ## 1. Syntax notes <a name="1"></a>
 
@@ -371,3 +372,16 @@ Run the following commands as root user:
     Он выведет: SET
 
 ## 7. Pytest <a name="7"></a>
+
+## 8. The Process <a name="8"></a>
+
+### 8.1. 
+[The Good way to structure a Python Project](https://towardsdatascience.com/the-good-way-to-structure-a-python-project-d914f27dfcc9)
+1. Create separate **virtual environment**
+2. Create separate **tests** folder
+3. Use **project template**
+4. **Document** everything immediately
+4.1. **Comment** code
+4.2. Make notes to **daily guide**
+5. Use **Git** 
+
