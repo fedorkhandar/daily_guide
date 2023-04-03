@@ -1,17 +1,40 @@
 # daily_guide
 Notes and guidelines for bad memory guy
 
-## 1. Syntax notes
+#Table of Contents
+1. [Syntax notes](#1)
+1.1. [Markdown](#1.1)
+2. [Git and Github](#2)
+2.1. [Repos](#2.1)
+3. [Linux notes](#3)
+3.1. [Screen](#3.1)
+3.2. [Users](#3.2)
+3.3. [Python installation](#3.3)
+3.4. [Ports](#3.4)
+3.5. [Executable python script](#3.5)
+3.6. [pm2](#3.6)
+4. [Python](#4)
+4.1. [Linters](#4.1)
+4.2. [Files and config](#4.2)
+4.3. [Logging](#4.3)
+4.4. [Virtual environment](#4.4)
+5. [Utilities](#5)
+5.1. [Anydesk](#5.1)
+5.2. [CURL](#5.2)
+5.3. [](#5.3)
+6. [PostgreSQL](#6)
+6.1. [Cyrillic encoding Windows in Psql](#6.1)
+7. [Pytest](#7)
 
-### 1.1. Markdown
+## 1. Syntax notes <a name="1"></a>
+
+### 1.1. Markdown <a name="1.1"></a>
 
 The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 
-## 2. Git and Github notes
+## 2. Git and Github <a name="2"></a>
 
-### 2.1. Git
-
-### 2.2. Github
+### 2.1. Repos <a name="2.1"></a>
 
 Clone Repo
 
@@ -25,9 +48,9 @@ Update Github from local repo
     
     git push origin main
     
-## 3. Linux notes
+## 3. Linux notes <a name="3"></a> 
 
-### 3.1. Screen
+### 3.1. Screen <a name="3.1"></a> 
 
 The reference [Screen Manual](https://www.gnu.org/software/screen/manual/html_node/index.html)
 
@@ -51,7 +74,7 @@ Windows
 
 `CTRL + A A` &mdash; rename window
 
-### 3.2. Users
+### 3.2. Users <a name="3.2"></a> 
 
 поменять пользователя
 
@@ -72,7 +95,7 @@ Windows
     sudo apt install mc
 
 
-### 3.3. Python installation
+### 3.3. Python installation <a name="3.3"></a>
 
 [tgz on Python.org](https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz)
 
@@ -102,13 +125,13 @@ Windows
     sudo update-alternatives --config python
 
 
-### 3.4. Ports
+### 3.4. Ports <a name="3.4"></a>
 
 `sudo fuser -vn tcp`**`<PORT>`** &mdash; find who occupies the port
 
 `kill -9`**`<PID>`** &mdash; kill it
 
-### 3.4. Executable python script
+### 3.5. Executable python script <a name="3.5"></a>
 
 0. Write `#!/usr/bin/python3` in the first line of the `<my_script.py>`
 1. `dos2unix my_script.py` &mdash; format the file
@@ -117,7 +140,7 @@ Windows
 
 `sudo apt-get install dos2unix` &mdash; install **dos2unix**
 
-### 3.5. pm2
+### 3.6. pm2 <a name="3.6"></a>
 
 `pm2 start myscript.py --name my_job --interpreter python3 --restart-delay 10000` &mdash; create job
 
@@ -129,9 +152,9 @@ Windows
  
 `sudo pm2 stop my_job` &mdash; stop job
 
-## 4. Python
+## 4. Python <a name="4"></a>
 
-### 4.1. Linters
+### 4.1. Linters <a name="4.1"></a>
 
 `vulture my_script.py >> _1.txt` &mdash; detects unused code (with probability)
 
@@ -141,7 +164,7 @@ Windows
 
 `flake8 my_script.py >> _1.txt` &mdash; large linter
 
-### 4.2. Files and config
+### 4.2. Files and config <a name="4.2"></a>
 
 Typical used file structure
 
@@ -178,7 +201,7 @@ Typical used file structure
     
 </details>
 
-### 4.3. Logging
+### 4.3. Logging <a name="4.3"></a>
 
 Filetree as in Section 4.2
 
@@ -298,9 +321,12 @@ When **backupcount** is non-zero, the system will save old log files by appendin
  
  </details>
 
-## 5. Utilities
+### 4.4. Virtual environment <a name="4.4"></a>
 
-### 5.1. Anydesk
+
+## 5. Utilities <a name="5"></a>
+
+### 5.1. Anydesk <a name="5.1"></a>
 
 [Howto](http://deb.anydesk.com/howto.html)
 
@@ -321,16 +347,16 @@ Run the following commands as root user:
         AutomaticLoginEnable=true
         AutomaticLogin=$USERNAME
 
-### 5.2. CURL
+### 5.2. CURL <a name="5.2"></a>
 
 [Конвертер CURL-запросов](https://curlconverter.com/)
 
-### 5.3. 
+### 5.3. <a name="5.3"></a>
 
 
-## 6. PostgreSQL
+## 6. PostgreSQL <a name="6"></a>
 
-### 6.1. Cyrillic encoding Windows in Psql
+### 6.1. Cyrillic encoding Windows in Psql <a name="6.1"></a>
     
     Запустить cmd.exe, нажать мышью в правом левом верхнем углу окна, там Свойства - Шрифт - выбрать Lucida Console. Нажать ОК.
     
@@ -344,3 +370,4 @@ Run the following commands as root user:
     Выполнить: set client_encoding='win1251';
     Он выведет: SET
 
+## 7. Pytest <a name="7"></a>
