@@ -62,7 +62,7 @@ The reference [markdownguide.org](https://www.markdownguide.org/basic-syntax/).
 
 ### 4.2. Files and config
 
-<details>
+Typical used file structure
 
 Filetree
 
@@ -70,6 +70,8 @@ Filetree
     config/config.ini
     lib/mylibrary.py
     main.py
+    
+<details>
 
 main.py
 
@@ -98,6 +100,8 @@ config/config.ini
 
 Filetree as in Section 4.2
 
+<details>
+ 
 config.ini
 
     [logger]
@@ -204,3 +208,5 @@ parser.py
     logger.warning("i am in the parser")
     logger.info("i am in the parser")
     logger.debug("i am in the parser")
+ 
+ </details>
