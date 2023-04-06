@@ -338,6 +338,31 @@ When **backupcount** is non-zero, the system will save old log files by appendin
 
 [A Complete Guide to Python Virtual Environments](https://www.dataquest.io/blog/a-complete-guide-to-python-virtual-environments/)
 
+### 4.5 aiohttp <a name="4.5"></a>
+
+Send smth as:
+    
+    async def send_smth(url, headers, data):
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, headers=headers, data=data) as response:
+                return response.text
+                
+    url = ''
+    headers = ''
+    data = ''
+    send_smth(url, headers, data)
+    
+### 4.6. b64 <a name="4.6"></a>
+
+    encoding
+
+### 4.7. Timer <a name="4.6"></a>
+    
+    import time
+    start = time.time()
+    print(time.time()-start())
+    
+
 ## 5. Utilities <a name="5"></a>
 
 ### 5.1. Anydesk <a name="5.1"></a>
