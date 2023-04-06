@@ -19,12 +19,16 @@ Notes and guidelines for bad memory guy
 4.2. [Files and config](#4.2)
 4.3. [Logging](#4.3)
 4.4. [Virtual environment](#4.4)
+4.5 [aiohttp](#4.5)
+4.6. [b64](#4.6)
+4.7. [Timer](#4.6)
 5. [Utilities](#5)
 5.1. [Anydesk](#5.1)
 5.2. [CURL](#5.2)
 5.3. [](#5.3)
 6. [PostgreSQL](#6)
 6.1. [Cyrillic encoding Windows in Psql](#6.1)
+6.2. [Extensions](#6.2)
 7. [Pytest](#7)
 8. [The Process](#8)
 8.1. [Steps](#8.1)
@@ -34,6 +38,8 @@ Notes and guidelines for bad memory guy
 9.2. [Test](#9.2)
 10. [Docker](#10)
 10.1 [Installation on Windows](#10.1)
+11.2. [JSON and XML plugins](#11.2)
+
 
 ### Table of contents finishes
 
@@ -416,6 +422,26 @@ Run the following commands as root user:
     Кстати, обратите внимание - теперь предупреждения о несовпадении кодировок нет.
     Выполнить: set client_encoding='win1251';
     Он выведет: SET
+
+### 6.2. Extensions <a name="6.2"></a>
+    
+Psql:
+
+    DROP EXTENSION "uuid-ossp";
+    SET SCHEMA 'schema_name';
+    CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+    \df
+
+It would show:
+
+    ...
+    uuid_generate_v4
+    ...
+    
+in Python script creating DB structure use :
+    
+    f"message_id UUID NOT NULL DEFAULT {schema_name}.uuid_generate_v4(),"
+    
 
 ## 7. Pytest <a name="7"></a>
 

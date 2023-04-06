@@ -1,6 +1,6 @@
 import codecs
 
-readme_fname = "../daily_guide/readme.md"
+readme_fname = "../readme.md"
 
 def check(s):
     k = 0
