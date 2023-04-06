@@ -61,6 +61,14 @@ Update Github from local repo
 
 Change Git Owner on local machine
 
+### 2.2. Credentials
+    
+    On Windows PC simply use OS's interface:
+    1. Go to Credential Manager (Диспетчер учетных данных)
+    2. Windows Credentials
+    3. Delete entries under the Generic Credentials
+    
+
 ## 3. Linux notes <a name="3"></a>
 
 ### 3.1. Screen <a name="3.1"></a>
