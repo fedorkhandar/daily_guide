@@ -30,8 +30,6 @@ def check(s):
         
     return False, ''
     
-    
-    
 
 lines = codecs.open(readme_fname, "r", "utf-8").readlines()
 with codecs.open("test.txt", "w", "utf-8") as fout:
