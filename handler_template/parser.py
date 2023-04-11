@@ -10,10 +10,10 @@ from aiohttp import web
 sys.path.insert(1, 'lib')
 import mylogging
 import mylibrary
+import shared_data
 
 config = configparser.ConfigParser()
 config.read("config/config.ini")
-
 logger = mylogging.set_logger(config)
 
 async def json_response400(error_message):
@@ -37,7 +37,6 @@ async def json_response200(data):
         content_type="application/json", 
         dumps=json.dumps
     )
-
 
 async def save_failed(save_flag, folder, xml_id, xml_data):
     """
@@ -107,9 +106,23 @@ async def handler(request):
         logger.error("failed processing XML: %s, %s", xml_id, error)
         return await json_response400("failed processing xml file")
 
+async def config_once_init(app):
+    app['app_data'] = shared_data.shared_data()
+    await app['app_data'].init(config)
+
+# handler
+ # pool = request.app['pool']
+ # async with pool.acquire() as connection:
+ 
+# app start 
+ # app['pool'] = await asyncpg.create_pool
+
+
 def main():
-    app = web.Application(client_max_size=int(config["server"]["client_max_size"]))
-    app.add_routes([web.post("/" + config["server"]["path"], handler)])
+    app = web.Application(client_max_size = int(config["server"]["client_max_size"]))
+    app.on_startup.append(config_once_init)
+    
+    app.add_routes([web.post("/" + config["server"]["path"], handler)])   
     web.run_app(app, port=config["server"]["port"])
 
 if __name__ == "__main__":
