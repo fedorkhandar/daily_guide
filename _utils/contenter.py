@@ -29,6 +29,10 @@ def check(s):
         return flag, x
         
     return False, ''
+<<<<<<< HEAD
+    
+=======
+>>>>>>> 1cc56df40a3c53e0e27cd25dbd7fb47f617022e1
 
 lines = codecs.open(readme_fname, "r", "utf-8").readlines()
 menu = []

@@ -24,7 +24,6 @@ async def start_db(app_data):
 async def start_data(app_data):
     with codecs.open(app_data.data_fname, "r", "utf-8") as fout: 
         rows = fout.readlines()
-        
         queries = []
         for r.rstrip() in rows:
             queries.append(
@@ -37,7 +36,7 @@ async def start():
     
     await start_db(app_data)
     await start_data(app_data)
-
+    
     
 if __name__ == "__main__":
     asyncio.run(start())
