@@ -131,3 +131,6 @@ dmypy.json
 # daily_guide
 project_template/logs
 _utils/test.txt
+handler_template/client/b_real_115.xml
+handler_template/client/real_115.xml
+handler_template/client/result.txt

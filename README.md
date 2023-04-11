@@ -38,8 +38,9 @@ Notes and guidelines for bad memory guy
 9.2. [Test](#9.2)
 10. [Docker](#10)
 10.1 [Installation on Windows](#10.1)
+11. [Notepad +](#11)
+11.1. [Execution Python scripts from the Notepad ++](#11.1)
 11.2. [JSON and XML plugins](#11.2)
-
 
 ### Table of contents finishes
 
@@ -352,7 +353,7 @@ When **backupcount** is non-zero, the system will save old log files by appendin
 
 [A Complete Guide to Python Virtual Environments](https://www.dataquest.io/blog/a-complete-guide-to-python-virtual-environments/)
 
-### 4.5 aiohttp <a name="4.5"></a>
+### 4.5 aiohttp send post request <a name="4.5"></a>
 
 Send smth as:
     
@@ -376,6 +377,38 @@ Send smth as:
     start = time.time()
     print(time.time()-start())
     
+### 4.8. aiohttp handler <a name="4.8"></a>
+
+#### config/config.ini
+
+    [server]
+    port = 9161
+    path = my_service
+    host=localhost
+    ;http://localhost:9161/my_service
+
+#### server.py
+
+    def main():
+        app = web.Application(client_max_size=4096**2)
+        app.add_routes([web.post("/" + config["server"]["path"], handler)])
+        web.run_app(app, port=config["server"]["port"])
+
+    if __name__ == "__main__":
+        main()
+
+#### client/client.py
+    
+    import configparser
+    
+    config = configparser.ConfigParser()
+    config.read("../data/config.ini")
+    
+    basefname = sys.argv[1]
+    server_url = f"http://{config['server']['host']}:{config['server']['port']}/{config['server']['path']}"
+
+
+
 
 ## 5. Utilities <a name="5"></a>
 
@@ -477,9 +510,9 @@ in Python script creating DB structure use :
 
 ### 10.1 Installation on Windows <a name="10.1"></a>
 
-## 11. Notepad ++
+## 11. Notepad ++<a name="11"></a>
 
-### 11.1. Execution Python scripts from the Notepad ++
+### 11.1. Execution Python scripts from the Notepad ++ <a name="11.1"></a>
 
 We assumed:
 - *Python is in PATH*
@@ -498,3 +531,4 @@ SETTINGS AND USE:
 
 
 ### 11.2. JSON and XML plugins <a name="11.2"></a>
+

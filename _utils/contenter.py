@@ -29,14 +29,24 @@ def check(s):
         return flag, x
         
     return False, ''
-    
-    
-    
 
 lines = codecs.open(readme_fname, "r", "utf-8").readlines()
-with codecs.open("test.txt", "w", "utf-8") as fout:
-    for line in lines:
-        flag, x = check(line)
-        if flag:
-            print(x, file = fout)
-    
+menu = []
+for line in lines:
+    flag, x = check(line)
+    if flag:
+        menu.append(x)
+            
+s_a = "# Table of Contents"
+s_b = "### Table of contents finishes"
+
+content = codecs.open(readme_fname, "r", "utf-8").read()
+header = content[:content.find(s_a)+len(s_a)]
+footer = content[content.find(s_b):]
+
+with codecs.open(readme_fname, "w", "utf-8") as fout:
+    print(header, file=fout)
+    print(file=fout)
+    print("\n".join(menu), file= fout)
+    print(file=fout)
+    print(footer, file=fout)
