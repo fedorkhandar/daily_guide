@@ -1,9 +1,15 @@
 import asyncio
 import asyncpg
+import configparser
 import os
 import time
 from typing import Dict
 from dataclasses import dataclass
+import mylogging
+
+config = configparser.ConfigParser()
+config.read("../config/config.ini")
+module_logger = mylogging.set_logger(config, __name__)
 
 if os.name == "nt":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -58,8 +64,41 @@ class Database:
                 for query in queries:
                     await conn.execute(query)
             
-    async def fetch(self):
-        pass
+    async def select(self, table, **kwargs):
+        cols_str = "*"
+        if 'cols' in kwargs:
+            if isinstance(kwargs['cols'], list):
+                cols_str = ", ".join(kwargs['cols'])
+            else:
+                cols_str = kwargs['cols']
+        query = f"SELECT {cols_str} FROM {self.sch}.{table}"
+        
+        if 'where' in kwargs:
+            where_str = " AND ".join([f"{x['col']} {x['sgn']} {x['row']}" for x in kwargs['where']])
+            query += f" WHERE {where_str}"
+        
+        if 'order_by' in kwargs:
+            query += f" ORDER BY {kwargs['order_by']}"
+        
+        if 'sort_dir' in kwargs:
+            query += f" {kwargs['sort_dir']}"
+        
+        if 'limit' in kwargs:
+            query += f" LIMIT {kwargs['limit']}"
+        query += ";"
+        
+        module_logger.debug(query)
+        
+        async with self.pool.acquire() as conn:
+            result = await conn.fetch(query)
+            
+        returning_result = []
+        for r in result:
+            d = {}
+            for key, value in r:
+                d[key]=value
+            returning_result.append(d)
+        print(returning_result)
         
     async def fetchvalue(self):
         pass
@@ -100,7 +139,7 @@ async def main():
         'example_created_at':'TIMESTAMP NOT NULL DEFAULT NOW()'
     }
     cols = [key for key, value in col_desc.items() if not value in ['SERIAL PRIMARY KEY', 'TIMESTAMP NOT NULL DEFAULT NOW()']]
-    rows = [[i, random_string('varchar',i), random_string('text',i)] for i in range(10000)]
+    rows = [[i, random_string('varchar',i), random_string('text',i)] for i in range(100)]
     
     await db.start_db(table, col_desc)
     start = time.time()
@@ -111,9 +150,28 @@ async def main():
     start = time.time()
     await db.insert_many(table, cols, rows)
     b = time.time() - start
+
+    await db.select(
+        "example", 
+        cols=["example_id", "example_text", "example_varchar"],
+        where=[
+            {"col":"example_id", "sgn": "IN", "row": "(1,2,3,4,5,6,7,8,9,10)"}, 
+            {"col":"example_int","sgn":">","row":4}
+        ],
+        limit=5,
+        order_by="example_int",
+        sort_dir="DESC"
+    )
     
-    print(a)
-    print(b)
+    # await db.select(
+        # "example", 
+        # cols="count(*)", 
+        # where=[
+            # {"col":"example_id", "sgn": "IN", "row": "(1,2,3,4,5,6,7,8,9,10)"}, 
+            # {"col":"example_int","sgn":">","row":4}
+        # ]
+    # )
+    
     # select_many(table, cols, where, limit, order by, dir=desc/asc)
     # select_one(table, cols, where)
     # count(table, where)
