@@ -9,7 +9,6 @@ from aiohttp import web
 
 sys.path.insert(1, 'lib')
 import mylogging
-import mylibrary
 import shared_data
 
 config = configparser.ConfigParser()

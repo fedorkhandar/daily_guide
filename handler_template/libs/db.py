@@ -8,7 +8,7 @@ from dataclasses import dataclass
 import mylogging
 
 config = configparser.ConfigParser()
-config.read("../config/config.ini")
+config.read("config/config.ini")
 module_logger = mylogging.set_logger(config, __name__)
 
 if os.name == "nt":
@@ -37,7 +37,13 @@ class Database:
             self.sch = 'public'
             
     async def init(self):
-        self.pool = await asyncpg.create_pool(self.dsn, min_size=1, max_size=8)
+        self.pool = await asyncpg.create_pool(
+            self.dsn, 
+            min_size=int(self.connection_settings['min_size']), 
+            max_size=int(self.connection_settings['max_size'])
+        )
+
+
 
     async def insert_many(self, table, cols, rows, returning_col=None):
         if returning_col is None:
@@ -63,7 +69,21 @@ class Database:
             async with conn.transaction():
                 for query in queries:
                     await conn.execute(query)
+
+    async def update(self, table, **kwargs):
+        if 'data' in kwargs:
+            query = f"UPDATE {self.sch}.{table} SET "
+            data_str = ", ".join([f"{x['col']} = $${x['row']}$$" for x in kwargs['data']])
+            query += f"{data_str}"
             
+            if 'where' in kwargs:
+                where_str = " AND ".join([f"{x['col']} {x['sgn']} {x['row']}" for x in kwargs['where']])
+                query += f" WHERE {where_str};"
+        
+            module_logger.debug("update: %s", query)
+            async with self.pool.acquire() as conn:
+                result = await conn.execute(query)
+
     async def select(self, table, **kwargs):
         cols_str = "*"
         if 'cols' in kwargs:
@@ -87,24 +107,19 @@ class Database:
             query += f" LIMIT {kwargs['limit']}"
         query += ";"
         
-        module_logger.debug(query)
+        module_logger.debug("select: %s", query)
         
         async with self.pool.acquire() as conn:
             result = await conn.fetch(query)
-            
+        
+        
         returning_result = []
         for r in result:
             d = {}
-            for key, value in r:
+            for key, value in r.items():
                 d[key]=value
             returning_result.append(d)
-        print(returning_result)
-        
-    async def fetchvalue(self):
-        pass
-        
-    async def fetchvalue(self):
-        pass
+        return returning_result
         
     async def start_db(self, table, col_desc):
         col_data = ",".join([f"{key} {value}" for key, value in col_desc.items()])
@@ -125,7 +140,9 @@ async def main():
         "port":5432,
         "host":"localhost",
         "option":"sslmode=disable",
-        "sch":"example_schema"
+        "sch":"example_schema",
+        "max_size":8,
+        "min_size":1
     }
     db = Database(connection_settings)
     await db.init()
@@ -145,24 +162,36 @@ async def main():
     start = time.time()
     returning_ids = await db.insert_many(table, cols, rows, 'example_id')
     a = time.time() - start
-    # print(returning_ids)
     
     start = time.time()
     await db.insert_many(table, cols, rows)
     b = time.time() - start
 
-    await db.select(
+    result = await db.update(
         "example", 
-        cols=["example_id", "example_text", "example_varchar"],
-        where=[
-            {"col":"example_id", "sgn": "IN", "row": "(1,2,3,4,5,6,7,8,9,10)"}, 
-            {"col":"example_int","sgn":">","row":4}
+        data=[
+            {"col":"example_text", "row": "new_text"},
+            {"col":"example_int", "row":64}
         ],
-        limit=5,
-        order_by="example_int",
-        sort_dir="DESC"
+        where=[
+            {"col":"example_id", "sgn": "<", "row": 10},
+            {"col":"example_id","sgn":">","row":4}
+        ]
     )
+    print(result)
     
+    # result = await db.select(
+        # "example", 
+        # cols=["example_id", "example_text", "example_varchar"],
+        # where=[
+            # {"col":"example_id", "sgn": "<", "row": 10},
+            # {"col":"example_int","sgn":">","row":4}
+        # ],
+        # limit=1
+        # # order_by="example_int",
+        # # sort_dir="DESC"
+    # )
+    # print(result)
     # await db.select(
         # "example", 
         # cols="count(*)", 
@@ -171,11 +200,6 @@ async def main():
             # {"col":"example_int","sgn":">","row":4}
         # ]
     # )
-    
-    # select_many(table, cols, where, limit, order by, dir=desc/asc)
-    # select_one(table, cols, where)
-    # count(table, where)
-    # update(table, cols, rows, where)
     
 if __name__ == "__main__":
     asyncio.run(main())
