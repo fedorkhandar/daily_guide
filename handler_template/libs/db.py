@@ -129,8 +129,6 @@ class Database:
         queries.append(f"CREATE TABLE IF NOT EXISTS {self.sch}.{table} ({col_data});")
         await self.execute_queries(queries)
 
-def random_string(value, i):
-    return f"{value}_{i}"
     
 async def main():
     connection_settings = {
@@ -156,7 +154,7 @@ async def main():
         'example_created_at':'TIMESTAMP NOT NULL DEFAULT NOW()'
     }
     cols = [key for key, value in col_desc.items() if not value in ['SERIAL PRIMARY KEY', 'TIMESTAMP NOT NULL DEFAULT NOW()']]
-    rows = [[i, random_string('varchar',i), random_string('text',i)] for i in range(100)]
+    rows = [[i, f"varchar_{i}", f"text_{i}"] for i in range(100)]
     
     await db.start_db(table, col_desc)
     start = time.time()
