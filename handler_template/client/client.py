@@ -45,6 +45,24 @@ def send_file(server_url, fname):
             print(r.json(), file = fout)
     else:
         print(r.text)
+        
+        
+def send_file2(server_url, fname):
+    """
+    b64_flag = True => in fname b64
+    """
+    content = get_content(fname)
+    data = {
+        'operation': 'reload_config'
+    }
+
+    r = requests.post(server_url, json=data)
+
+    if r.status_code == 200:
+        with codecs.open("result.txt", "w", "utf-8") as fout:
+            print(r.json(), file = fout)
+    else:
+        print(r.text)
             
 
 
@@ -52,4 +70,4 @@ basefname = sys.argv[1]
 server_url = f"http://{config['server']['host']}:{config['server']['port']}/{config['server']['path']}"
 b64_flag = True
 
-send_file(server_url, basefname)
+send_file2(server_url, basefname)

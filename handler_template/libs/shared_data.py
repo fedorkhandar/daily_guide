@@ -1,17 +1,26 @@
 import asyncpg
+import codecs
 import configparser
+import json
 
 from dataclasses import dataclass
 from typing import Dict, Union
 import db
 
+
+async def get_pattern(pattern_fname):
+    fname = f"data/{pattern_fname}"
+    print(fname)
+    with codecs.open(fname, "r", "utf-8") as json_file:
+        pattern_data = json.load(json_file)
+    return pattern_data['pattern']
+
 @dataclass
-class shared_data:
+class shared_data(object):
     # connection
     conn_settings: Dict[str, str] = None
     dbase: db.Database = None
-    # sch: str = None
-    data_fname: str = None
+    data_pattern: Dict[str, Union[str, int]] = None
     
     #other_data
     async def init(self, config):
@@ -28,10 +37,8 @@ class shared_data:
         }
         self.dbase = db.Database(self.conn_settings)
         await self.dbase.init()
-        # self.sch = 'example_schema'
-        self.data_fname = "example.txt"
-        
-    
+        self.data_pattern = await get_pattern(config["data"]["pattern_fname"])
+
     def __new__(cls):
         if not hasattr(cls, 'instance'):
             cls.instance = super(shared_data, cls).__new__(cls)
