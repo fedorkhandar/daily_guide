@@ -532,3 +532,19 @@ SETTINGS AND USE:
 
 ### 11.2. JSON and XML plugins <a name="11.2"></a>
 
+### 12. Decorators <a name="12"></a>
+Python decorators are a powerful feature that can help you become a more efficient and productive Python developer. Here are some compelling examples of benefits of using Python decorators:
+
+1. Code Reusability: Python decorators allow you to reuse code across multiple functions. Instead of writing the same code for multiple functions, you can use a decorator to add the desired functionality to each function. This avoids code duplication and makes your code more maintainable.
+
+2. Functionality Extension: Python decorators allow you to extend the functionality of a function, method, or class without modifying the original code. This means that you can add new features to your code without changing the existing behavior of the code. For example, you can use a decorator to add logging, caching, or performance testing to a function.
+
+3. Separation of Concerns: Python decorators allow you to separate concerns in your code. You can use a decorator to add cross-cutting concerns such as logging or error handling to your code, without cluttering the code with these concerns. This makes your code more modular and easier to maintain.
+
+4. Easy to Use: Python decorators are easy to use and require minimal code changes. You simply define a decorator function and apply it to the desired function using the `@decorator` syntax. This makes it easy to add new functionality to your code.
+
+5. Readability: Python decorators can improve the readability of your code. By using decorators, you can separate concerns and make your code more modular. This makes it easier to understand the code and reduces the cognitive load on the reader.
+
+6. Clean Code: Python decorators can help you write clean code. By separating concerns and reusing code, you can reduce code duplication and make your code more maintainable. This makes it easier to add new features and fix bugs in your code.
+
+Overall, Python decorators are a powerful feature that can help you write more efficient, modular, and maintainable code. They allow you to separate concerns, reuse code, and extend the functionality of your code without modifying the original code.
