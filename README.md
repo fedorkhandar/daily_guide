@@ -548,3 +548,77 @@ Python decorators are a powerful feature that can help you become a more efficie
 6. Clean Code: Python decorators can help you write clean code. By separating concerns and reusing code, you can reduce code duplication and make your code more maintainable. This makes it easier to add new features and fix bugs in your code.
 
 Overall, Python decorators are a powerful feature that can help you write more efficient, modular, and maintainable code. They allow you to separate concerns, reuse code, and extend the functionality of your code without modifying the original code.
+
+Here are 5 best practices of using Python decorators:
+
+1. Use functools.wraps() to preserve function metadata: When creating a decorator, it's important to preserve the metadata of the original function such as its name and docstring. This can be done using the `functools.wraps()` decorator. This ensures that the original function can still be identified properly, even after it has been decorated.
+
+```python
+import functools
+
+def my_decorator(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        # Do something before the function is called
+        result = func(*args, **kwargs)
+        # Do something after the function is called
+        return result
+    return wrapper
+```
+
+2. Use class-based decorators for complex functionality: For complex functionality, it may be better to use a class-based decorator instead of a function-based decorator. This allows you to encapsulate the decorator logic in a separate class, making the code more modular.
+
+```python
+class MyDecorator:
+    def __init__(self, func):
+        self.func = func
+
+    def __call__(self, *args, **kwargs):
+        # Do something before the function is called
+        result = self.func(*args, **kwargs)
+        # Do something after the function is called
+        return result
+
+@MyDecorator
+def my_function():
+    pass
+```
+
+3. Document your decorators: It's important to document your decorators so that other developers can understand how they work and how to use them. Use docstrings to provide clear and concise documentation for your decorators.
+
+```python
+def my_decorator(func):
+    """
+    This is a decorator that does something.
+    """
+    def wrapper(*args, **kwargs):
+        # Do something before the function is called
+        result = func(*args, **kwargs)
+        # Do something after the function is called
+        return result
+    return wrapper
+```
+
+4. Use decorators sparingly: While decorators can be a powerful tool, it's important to use them sparingly. Overuse of decorators can make the code hard to read and understand. Use decorators only when they provide a clear benefit to the code.
+
+5. Use the @wraps decorator for debugging: When debugging code that uses decorators, it can be helpful to use the `@wraps` decorator. This will ensure that the original function's metadata is preserved, making it easier to identify the function during debugging.
+
+```python
+import functools
+
+def my_decorator(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        # Do something before the function is called
+        result = func(*args, **kwargs)
+        # Do something after the function is called
+        return result
+    return wrapper
+```
+
+Sources:
+- [RealPython](https://realpython.com/primer-on-python-decorators/)
+- [The Digital Cat](https://www.thedigitalcatonline.com/blog/2015/04/23/python-decorators-metaprogramming-with-style/)
+- [CodeMentor](https://www.codementor.io/@sheena/advanced-use-python-decorators-class-function-du107nxsv)
+- [FreeCodeCamp](https://www.freecodecamp.org/news/python-decorators-explained-with-examples/)
+- [Python Documentation](https://docs.python.org/3/library/functools.html#functools.wraps)
